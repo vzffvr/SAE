@@ -1,49 +1,48 @@
 #include <Arduino.h>
 #include <wire.h>
 #include <Ticker.h>
-#include <temperature.h>
+#include <TC74.h>
 
+#define adrs_TC74 72
 // constantes
 const uint8_t LED_PIN = 13;
-#define adresse 1001 000
 
 // prototypes
 void action();
-void TCM102_begin();
 
 // objets
-TC74 tc74;
+tc74 TC74;
 Ticker ticker(action, 2000, 0, MILLIS);
 // variables globales
+int temperature;
 //*****
 void action()
 {
+    temperature = TC74.read();
     Serial.println("Temperature");
-    Serial.println(tc74.read());
-    Serial.println("standby");
-    Serial.println(tc74.isStandby());
+    Serial.println(temperature);
 }
-
-//*****
 
 void setup()
 {
-    ticker.start();
+
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
     digitalWrite(LED_PIN, LOW);
 
-    tc74.begin();
+    TC74.begin(adrs_TC74);
+    TC74.setStanby(false);
+
+    ticker.start();
+
+    /* if (!TC74.isStandby())
+    {
+        TC74.setStanby(false);
+    }
+    */
 }
 
 void loop()
 {
-    /* Wire.beginTransmission(0x45);
-    Wire.write(3);
-    Wire.endTransmission();
-    Wire.requestFrom(0x45, byte(1));
-    uint8_t val = Wire.read();
-    Wire.endTransmission(); */
-
     ticker.update();
 }
