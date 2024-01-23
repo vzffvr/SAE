@@ -1,18 +1,24 @@
-#include <Arduino.h>
+#include <DS3231.h>
+#include <Ticker.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#define RTC_adrs 102
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void action()
+{
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+DS3231 RTC;
+
+Ticker ticker(action, 2000, 0, MILLIS);
+
+void setup()
+{
+  RTC.begin(RTC_adrs);
+  ticker.start();
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+
+  ticker.update();
 }
