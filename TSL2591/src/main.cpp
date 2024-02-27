@@ -16,6 +16,7 @@ void action()
   // TSL.getVisibleSpectrum();
   lux = TSL.calculateLux();
   Serial.printf("luminosité : %.0f\n\r", lux);
+  TSL.getVisibleSpectrum();
 }
 
 Ticker ticker(action, 2000, 0, MILLIS);

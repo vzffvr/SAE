@@ -222,6 +222,9 @@ float TSL2591::calculateLux()
 
 String TSL2591::getString()
 {
+    calculateLux();
     String res = "";
     res = res + String(_Lux) + "Lux";
+    Serial.println(res);
+    return res;
 }
