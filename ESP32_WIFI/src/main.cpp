@@ -9,6 +9,7 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 #include <image.h>
+#include <Adafruit_BME680.h>
 
 //______Define______//
 #define RTC_adrs 0x68
@@ -38,6 +39,7 @@ GFXcanvas1 canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 tc74 TC74;
 DS3231 RTC;
 TSL2591 TSL;
+Adafruit_BME680 bme;
 
 //_____Prototypes______//
 //
@@ -79,6 +81,20 @@ void setup()
   setRoutes();
   // ticker
   ticker.start();
+  //bme680
+  Serial.println(F("BME680 async test"));
+
+  if (!bme.begin()) {
+    Serial.println(F("Could not find a valid BME680 sensor, check wiring!"));
+    while (1);
+  }
+
+  // Set up oversampling and filter initialization
+  bme.setTemperatureOversampling(BME680_OS_8X);
+  bme.setHumidityOversampling(BME680_OS_2X);
+  bme.setPressureOversampling(BME680_OS_4X);
+  bme.setIIRFilterSize(BME680_FILTER_SIZE_3);
+  bme.setGasHeater(320, 150); // 320*C for 150 ms
 }
 
 void loop()
