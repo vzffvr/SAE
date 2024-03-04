@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="w3.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Esp32</title>
+</head>
+
+<body>
+  <!-- titre -->
+  <div class="w3-container w3-blue-grey w3-center w3-margin-bottom">
+    <h1>Interface météo
+    </h1>
+  </div>
+
+
+  <div class="w3-container w3-row-padding">
+    <div class="w3-third w3-card w3-center">
+      <h2>Humidité</h2>
+      <div id="gauge_humidity" style="width:400px; height:320px"></div>
+    </div>
+    <div class="w3-third w3-card w3-center">
+      <h2>Luminosité</h2>
+      <div id="gauge_lux" style="width:400px; height:320px;"></div>
+    </div>
+    <div class="w3-third w3-card w3-center">
+      <h2>Température</h2>
+      <div id="gauge_temperature" style="width:400px; height:320px"></div>
+    </div>
+  </div>
+
+  <div class="w3-container">
+    <p></p>
+    <p></p>
+  </div>
+
+  <div class="w3-row">
+    <div class="w3-third w3-card w3-margin w3-center" style="width:32.2%">
+      <h2>pression</h2>
+      <div id="gauge_pressure" style="width:400px; height:320px"></div>
+    </div>
+    <div class="w3-col w3-card w3-margin w3-center" style="width:32.2%">
+      <h2>LED</h2>
+      <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
+      <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
+      <p></p>
+    </div>
+    <div class="w3-col w3-card w3-margin w3-center" style="width:32.2%">
+
+      <header class="w3-container">
+        <h2>Servo moteur</h2>
+      </header>
+      <p></p>
+      <div class="w3-container">
+        <input type="range" id="slider_id" name="slider" min="0" max="100">
+      </div>
+      <footer class="w3-container">
+        <p></p>
+        <p><span id="servo_val_id"></span>20</span></p>
+      </footer>
+
+    </div>
+  </div>
+
+  <!---->
+  <script src="raphael.min.js"></script>
+  <script src="justgage.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
