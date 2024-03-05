@@ -5,7 +5,7 @@
 #include <Adafruit_GFX.h>
 #include <Widgets.h>
 //
-#include <images.h>
+#include <image.h>
 const uint32_t PERIOD = 1000;
 // obj
 Ticker ticker(action, PERIOD, 0, MILLIS);
@@ -22,3 +22,4 @@ void action()
     oled.drawBitmap(0, 0, canvas.getBuffer(), OLED_SCREEN_WIDTH,
                     OLED_SCREEN_HEIGHT, 1, 0);
     oled.display();
+}

@@ -7,6 +7,7 @@ const lux_ref = document.getElementById("temperature_id");
 const slider_ref = document.getElementById("slider_id");
 const val_slider_ref = document.getElementById("servo_val_id");
 
+
 let sliderValue = 0;
 
 
@@ -17,21 +18,25 @@ button_off_ref.addEventListener("click", button_off_handler);
 
 //
 function slider_handler(event) {
-  console.log(event.target.value);
+  // console.log(event.target.value);
   sliderValue = event.target.value;
   val_slider_ref.textContent = sliderValue.toString();
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "/servo?angle=" + sliderValue, true);
+  xhttp.send();
 }
 
 //
 function button_on_handler() {
-  console.log("bonton on");
+  // console.log("bonton on");
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "/action?led=1", true);
   xhttp.send();
 }
 //
 function button_off_handler() {
-  console.log("bonton off");
+  // console.log("bonton off");
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "/action?led=0", true);
   xhttp.send();
@@ -43,7 +48,7 @@ function temperature_Handler() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const temperatureValue = this.responseText;
-      console.log(temperatureValue);
+      // console.log(temperatureValue);
       gaugeTemperature.refresh(temperatureValue);
     }
   }
@@ -58,7 +63,7 @@ function Lux_Handler() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const LuxValue = this.responseText;
-      console.log(LuxValue);
+      // console.log(LuxValue);
       gaugeLux.refresh(LuxValue);
     }
   }
@@ -67,6 +72,35 @@ function Lux_Handler() {
   xhttp.send();
 }
 
+function HUM_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const HumValue = this.responseText;
+      // console.log(HumValue);
+      gaugeHumidity.refresh(HumValue);
+    }
+  }
+  //
+  xhttp.open("GET", "/Humvalue", true);
+  xhttp.send();
+}
+
+function Pres_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const PresValue = this.responseText;
+      // console.log(PresValue);
+      gaugePressure.refresh(PresValue);
+    }
+  }
+  //
+  xhttp.open("GET", "/Presvalue", true);
+  xhttp.send();
+}
 /* function set_gauge_value() {
   gaugeTemperature.refresh(temperatureValue);
 
@@ -78,6 +112,8 @@ function Lux_Handler() {
 } */
 setInterval(temperature_Handler, 2000);
 setInterval(Lux_Handler, 2000);
+setInterval(Pres_Handler, 2000);
+setInterval(HUM_Handler, 2000);
 
 //
 const gaugeTemperature = new JustGage({
