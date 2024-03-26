@@ -1,5 +1,7 @@
 #ifndef WIDGETS_H
 #define WIDGETS_H
+#define SCREEN_WIDTH = 128
+#define SCREEN_HEIGHT = 64
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -13,7 +15,7 @@ public:
     // constructor
     AnaClock(GFXcanvas1 *pcanvas, uint16_t centerX, uint16_t centerY, uint16_t radius);
     void update(uint8_t thehour, uint8_t theminute, uint8_t thesecond, String day,
-                uint8_tnumber, String month);
+                uint8_t number, String month);
     void draw();
 
 private:

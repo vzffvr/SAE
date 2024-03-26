@@ -21,6 +21,6 @@ void BOUTON::wait_for_realesed()
 {
     if (pressed() == true)
     {
-        delay(200);
+        delay(100);
     }
 }

@@ -13,6 +13,8 @@
 #include <Servo.h>
 #include <BOUTON.h>
 
+// Adresse IP : 192.168.1.181
+
 //______Define______//
 #define RTC_adrs 0x68
 #define adrs_TC74 72
@@ -43,7 +45,7 @@ float lux = 0.0;
 float humidity = 0.0;
 float pressure = 0.0;
 float angle = 0.0;
-uint8_t val = 0;
+uint8_t val = 1;
 
 //_____Classes________//
 AsyncWebServer server(80);
@@ -60,7 +62,7 @@ BOUTON BOUTON_DOWN;
 BOUTON BOUTON_SELECT;
 
 //_____Prototypes______//
-//
+
 bool initSPIFFS();
 //
 void setRoutes();
@@ -80,6 +82,8 @@ void draw_date();
 void draw_clock();
 //
 void draw_press();
+//
+void draw_lum();
 //
 void draw_hum();
 //
@@ -140,6 +144,7 @@ void loop()
 //_____Fonctions______//
 void action()
 {
+  Traitement_bouton();
   OLED.clearDisplay();
 
   lux = TSL.calculateLux();
@@ -156,41 +161,82 @@ void action()
   humidity = bme.humidity;
   pressure = bme.pressure / 100;
 
-  Serial.printf("Lux : %.0f\n\r", lux);
-  Serial.printf("température : %.0f\n\r", temperature);
-  Serial.printf("pression : %.0f\n\r", pressure);
-  Serial.printf("hum : %.0f\n\r", humidity);
+  // Serial.printf("Lux : %.0f\n\r", lux);
+  // Serial.printf("température : %.0f\n\r", temperature);
+  // Serial.printf("pression : %.0f\n\r", pressure);
+  // Serial.printf("hum : %.0f\n\r", humidity);
   Serial.println();
 
   draw_menu();
   canvas.setTextSize(1);
   canvas.setTextColor(1);
-  canvas.setCursor(20, 57);
-  canvas.println("->");
-  // switch (val)
-  // {
-  // case 1:
-  //   draw_temp();
-  //   break;
-  // case 2:
-  //   draw_date();
-  //   break;
-  // case 3:
-  //   draw_clock();
-  //   break;
-  // case 4:
-  //   draw_press();
-  //   break;
-  // case 5:
-  //   draw_hum();
-  //   val = 0;
-  //   break;
-  // default:
-  //   OLED.clearDisplay();
-  //   Serial.println("Probleme affichage");
-  //   break;
-  // }
-  // val++;
+  if (val < 1)
+    val = 6;
+  if (val > 6)
+    val = 1;
+  switch (val)
+  {
+  case 1:
+    canvas.setCursor(20, 3);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_hum();
+    }
+    break;
+  case 2:
+    canvas.setCursor(20, 13);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_temp();
+    }
+    break;
+  case 3:
+    canvas.setCursor(20, 25);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_press();
+    }
+    break;
+  case 4:
+    canvas.setCursor(20, 35);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_lum();
+    }
+    break;
+  case 5:
+    canvas.setCursor(20, 45);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_date();
+    }
+    break;
+  case 6:
+    canvas.setCursor(20, 57);
+    canvas.println("->");
+    if (BOUTON_SELECT.pressed())
+    {
+      OLED.clearDisplay();
+      draw_clock();
+    }
+    break;
+  default:
+    Serial.println("Probleme affichage");
+    break;
+  }
+  if (BOUTON_SELECT.pressed())
+  {
+  }
   OLED.drawBitmap(0, 0, canvas.getBuffer(), SCREEN_WIDTH, SCREEN_HEIGHT, 1, 0);
   OLED.display();
 }
@@ -303,7 +349,7 @@ void setRoutes()
 void draw_temp()
 {
   canvas.fillScreen(BLACK);
-  canvas.drawBitmap(52, 0, bitmap_thermometre, 24, 24, 1);
+  canvas.drawBitmap(52, 8, epd_bitmap_thermometre__1_, 32, 32, 1);
   canvas.setTextSize(2);
   canvas.setTextColor(1);
   canvas.setCursor(40, 50);
@@ -313,12 +359,12 @@ void draw_temp()
 void draw_date()
 {
   canvas.fillScreen(BLACK);
-  canvas.drawBitmap(52, 0, epd_bitmap_calendrier__1_, 24, 24, 1);
+  canvas.drawBitmap(45, 0, epd_bitmap_calendar_days, 32, 32, 1);
   canvas.setTextSize(2);
   canvas.setTextColor(1);
   canvas.setCursor(40, 30);
   canvas.println(RTC.get_jour());
-  canvas.setCursor(30, 50);
+  canvas.setCursor(25, 50);
   canvas.println(RTC.get_StringDate());
 }
 
@@ -326,8 +372,10 @@ void draw_clock()
 {
   canvas.fillScreen(BLACK);
   canvas.drawBitmap(45, 0, epd_bitmap_clock, 32, 32, 1);
-  // canvas.fillRect(64, 4, 40,, WHITE);
-  // canvas.fillCircle(64, 25, 40, WHITE);
+  // canvas.fillCircle(20, 20, 10, WHITE);
+  // canvas.fillRect(100, 50, 20, 5, WHITE);
+  // oled.drawBitmap(0, 0, canvas.getBuffer(), SCREEN_WIDTH, SCREEN_HEIGHT, 1, 0);
+  // oled.display();
   canvas.setTextSize(2);
   canvas.setTextColor(1);
   canvas.setCursor(35, 50);
@@ -344,13 +392,23 @@ void draw_press()
   canvas.println(String(pressure));
 }
 
+void draw_lum()
+{
+  canvas.fillScreen(BLACK);
+  canvas.drawBitmap(45, 8, epd_bitmap_luminosite__1_, 32, 32, 1);
+  canvas.setTextSize(2);
+  canvas.setTextColor(1);
+  canvas.setCursor(30, 50);
+  canvas.println(String(lux));
+}
+
 void draw_hum()
 {
   canvas.fillScreen(BLACK);
-  canvas.drawBitmap(45, 0, epd_bitmap_humidity, 32, 32, 1);
+  canvas.drawBitmap(45, 8, epd_bitmap_humidity, 32, 32, 1);
   canvas.setTextSize(2);
   canvas.setTextColor(1);
-  canvas.setCursor(40, 50);
+  canvas.setCursor(35, 50);
   canvas.println(String(humidity));
 }
 
@@ -385,4 +443,5 @@ void Traitement_bouton()
     val--;
     BOUTON_DOWN.wait_for_realesed();
   }
+  Serial.println(val);
 }
