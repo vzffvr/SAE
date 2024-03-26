@@ -290,7 +290,6 @@ bool initSPIFFS()
 void setRoutes()
 {
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-
             { request->send(SPIFFS, "/index.html", "text/html"); });
   //
   server.on("/w3.css", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -316,7 +315,43 @@ void setRoutes()
 
   server.on("/Presvalue", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(200, "/text/plain", String(pressure)); });
-
+  //
+  //
+  server.on("/post", HTTP_POST, [](AsyncWebServerRequest *request) //A Tester!!!!!!!!!!!!!!
+  {
+  String theDateValue = "";
+  String theHourValue = "";
+  String theDayValue = ""; 
+  int params = request->params();
+  //
+  Serial.println(params);
+  for (int i = 0; i < params; i++)                 //A Tester !!!!!!!!!!!!!!!!!!!!!
+  {
+    AsyncWebParameter *p = request->getParam(i);
+    if (p->isPost())
+    {
+      if (p->name() == "theday")
+      {
+        theDayValue = p->value();
+      }
+      //
+      if (p->name() == "thedate")
+      {
+        theDateValue = p->value();
+      }
+      //
+      if (p->name() == "thetime")
+      {
+        theHourValue = p->value();
+      }
+    }
+  }
+  Serial.println(theDateValue);
+  //
+  //
+  request->redirect("/");});
+//mise a jour de la date et heure
+//
   server.on("/action", HTTP_GET, [](AsyncWebServerRequest *request)
             {
     if (request->hasParam(PARAM_LED))
