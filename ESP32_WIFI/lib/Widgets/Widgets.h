@@ -1,11 +1,11 @@
-#ifndef WIDGETS_H
-#define WIDGETS_H
+
 #define SCREEN_WIDTH = 128
 #define SCREEN_HEIGHT = 64
+#ifndef WIDGETS_H
+#define WIDGETS_H
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <image.h>
 //*********************
 // anaclock widget
 //*********************
@@ -26,6 +26,8 @@ private:
     void _drawDate();
     float _calculX(float rayon, float angle);
     float _calculY(float rayon, float angle);
+    void _calculangle_min();
+    void _calculangle_h();
     uint16_t _radius;
     uint16_t _centerX;
     uint16_t _centerY;
@@ -36,6 +38,10 @@ private:
     uint8_t _number;
     String _month;
     GFXcanvas1 *_canvas;
+    float _angle_min;
+    float _rayon_min;
+    float _angle_h = 15;
+    float _rayon_h = 10;
 };
 //*********************
 // gauge widget

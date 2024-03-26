@@ -90,6 +90,10 @@ void draw_hum();
 void draw_menu();
 //
 void Traitement_bouton();
+//
+void Maj_date(String jour, String mois);
+//
+void Maj_RTC(String theHourValue, String theDateValue, String theDayValue);
 
 //__Ticker__//
 Ticker ticker(action, 1000, 0, MILLIS);
@@ -317,8 +321,8 @@ void setRoutes()
             { request->send(200, "/text/plain", String(pressure)); });
   //
   //
-  server.on("/post", HTTP_POST, [](AsyncWebServerRequest *request) //A Tester!!!!!!!!!!!!!!
-  {
+  server.on("/post", HTTP_POST, [](AsyncWebServerRequest *request) // A Tester!!!!!!!!!!!!!!
+            {
   String theDateValue = "";
   String theHourValue = "";
   String theDayValue = ""; 
@@ -347,11 +351,16 @@ void setRoutes()
     }
   }
   Serial.println(theDateValue);
+
   //
   //
-  request->redirect("/");});
-//mise a jour de la date et heure
-//
+  request->redirect("/"); 
+ 
+  Maj_RTC(theHourValue,theDateValue,theDayValue);
+ });
+
+  // mise a jour de la date et heure
+  //
   server.on("/action", HTTP_GET, [](AsyncWebServerRequest *request)
             {
     if (request->hasParam(PARAM_LED))
@@ -478,5 +487,21 @@ void Traitement_bouton()
     val--;
     BOUTON_DOWN.wait_for_realesed();
   }
-  Serial.println(val);
+}
+
+void Maj_RTC(String theHourValue, String theDateValue, String theDayValue)
+{
+  String hour=theHourValue.substring(0, 2);
+  String minute=theHourValue.substring(3, 5);
+
+  String jour=theDateValue.substring(5, 7);
+  String mois=theDateValue.substring(8, 10);
+
+  uint8_t _jour_ = jour.toInt();
+  uint8_t _mois_ = mois.toInt();
+  uint8_t _day_ = theDayValue.toInt();
+  uint8_t _heure = hour.toInt();
+  uint8_t _minute_ = minute.toInt();
+  RTC.set_Date(_day_,_mois_,_jour_);
+  RTC.set_Time(_heure, _minute_,0);
 }

@@ -53,9 +53,9 @@
     <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
       <header class="w3-container">
         <h2>LED</h2>
-      <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
-      <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
-      <p></p>
+        <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
+        <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
+        <p></p>
         <h2>Servo moteur</h2>
       </header>
       <p></p>
@@ -70,7 +70,7 @@
 
     <!-- 3eme Container -->
     <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
-      <form id="form_id" method="post" action="/post"></form>
+      <form id="form_id" method="post" action="/post">
 
         <label>Jour</label>
         <select class="w3-select" name="theday" required>
@@ -83,13 +83,13 @@
           <option value="6">Vendredi</option>
           <option value="7">Samedi</option>
 
-        <label>Date</label>
-        <input class="w3-input" id="thedate" name="thedate" type="date" required>
+          <label>Date</label>
+          <input class="w3-input" id="thedate" name="thedate" type="date" required>
 
-        <input class="w3-input" id="thetime" name="thetime" type="time" required>
-    
-        <input class="w3-btn w3-round w3-teal w3-margin" id="Valider" type = "submit" value="Valider">
-    </form>
+          <input class="w3-input" id="thetime" name="thetime" type="time" required>
+
+          <input class="w3-btn w3-round w3-teal w3-margin" id="Valider" type="submit" value="Valider">
+      </form>
     </div>
 
   </div>
