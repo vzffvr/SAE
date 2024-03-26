@@ -16,6 +16,7 @@ slider_ref.addEventListener("change", slider_handler);
 button_on_ref.addEventListener("click", button_on_handler);
 button_off_ref.addEventListener("click", button_off_handler);
 
+
 //
 function slider_handler(event) {
   // console.log(event.target.value);

@@ -17,17 +17,20 @@
     </h1>
   </div>
 
-
+  <!-- Premier Row -->
   <div class="w3-container w3-row-padding">
     <div class="w3-third w3-card w3-center">
+      <!-- 1eme Container -->
       <h2>Humidité</h2>
       <div id="gauge_humidity" style="width:400px; height:320px"></div>
     </div>
     <div class="w3-third w3-card w3-center">
+      <!-- 2eme Container -->
       <h2>Luminosité</h2>
       <div id="gauge_lux" style="width:400px; height:320px;"></div>
     </div>
     <div class="w3-third w3-card w3-center">
+      <!-- 3eme Container -->
       <h2>Température</h2>
       <div id="gauge_temperature" style="width:400px; height:320px"></div>
     </div>
@@ -38,20 +41,21 @@
     <p></p>
   </div>
 
+  <!-- Deuxieme Row -->
+  <!-- 1er Container -->
   <div class="w3-row">
     <div class="w3-third w3-card w3-margin w3-center" style="width:32.2%">
       <h2>pression</h2>
       <div id="gauge_pressure" style="width:400px; height:320px"></div>
     </div>
-    <div class="w3-col w3-card w3-margin w3-center" style="width:32.2%">
-      <h2>LED</h2>
+
+    <!-- 2eme Container -->
+    <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
+      <header class="w3-container">
+        <h2>LED</h2>
       <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
       <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
       <p></p>
-    </div>
-    <div class="w3-col w3-card w3-margin w3-center" style="width:32.2%">
-
-      <header class="w3-container">
         <h2>Servo moteur</h2>
       </header>
       <p></p>
@@ -62,12 +66,35 @@
         <p></p>
         <p><span id="servo_val_id"></span></span></p>
       </footer>
+    </div>
 
+    <!-- 3eme Container -->
+    <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
+      <form id="form_id" method="post" action="/post"></form>
+
+        <label>Jour</label>
+        <select class="w3-select" name="theday" required>
+          <option value="" disabled selected>Which day are we?</option>
+          <option value="1">Dimanche</option>
+          <option value="2">Lundi</option>
+          <option value="3">Mardi</option>
+          <option value="4">Mercredi</option>
+          <option value="5">Jeudi</option>
+          <option value="6">Vendredi</option>
+          <option value="7">Samedi</option>
+
+        <label>Date</label>
+        <input class="w3-input" id="thedate" name="thedate" type="date" required>
+
+        <input class="w3-input" id="thetime" name="thetime" type="time" required>
+    
+        <input class="w3-btn w3-round w3-teal w3-margin" id="Valider" type = "submit" value="Valider">
+    </form>
     </div>
 
   </div>
   <footer class="w3-container">
-    <p> Touradou Augustin</p>
+    <p> Fait par Touradou et Augustin IUT CY Neuville 2023/2024</p>
   </footer>
 
   <!---->
