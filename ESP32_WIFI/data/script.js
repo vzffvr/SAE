@@ -7,8 +7,8 @@ const lux_ref = document.getElementById("temperature_id");
 const slider_ref = document.getElementById("slider_id");
 const val_slider_ref = document.getElementById("servo_val_id");
 
-const city = document.getElementById("city_id");
-
+const button_city_ref = document.getElementById("validationville");
+const CityName = document.getElementById("city_text");
 
 
 let sliderValue = 0;
@@ -18,9 +18,34 @@ let cityName = "Paris";
 slider_ref.addEventListener("change", slider_handler);
 button_on_ref.addEventListener("click", button_on_handler);
 button_off_ref.addEventListener("click", button_off_handler);
+// button_city_ref.addEventListener("click", city_handler);
 city.addEventListener("click", city_handler);
-
 //
+/*function Json_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const theJson = JSON.parse(this.responseText);
+      console.log(theJson);
+    }
+  }
+  //
+  xhttp.open("GET", "/weather/", true);
+  xhttp.send();
+}*/
+//
+// function city_handler(event) {
+//   CityName = event.target.value;
+
+//   const xhttp = new XMLHttpRequest();
+//   xhttp.open("GET", "/weather?city=" + CityName, true);
+//   xhttp.send();
+
+//   console.log(CityName)
+
+// }
+
 function city_handler(event)
 {
   cityName = event.target.value;
