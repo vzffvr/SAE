@@ -12,13 +12,15 @@
 
 <body>
   <!-- titre -->
-  <div class="w3-container w3-blue-grey w3-center w3-margin-bottom w3-responsive">
+  <div class="w3-container w3-responsive" >
+  <div class="w3-row w3-blue w3-center w3-margin-bottom w3-responsive">
     <h1>Interface météo
     </h1>
-  </div>
-
+  </div></div>
+    
   <!-- Premier Row -->
-  <div class="w3-container w3-row-padding">
+  <div class="w3-container">
+  <div class="w3-padding ">
     <div class="w3-third w3-card w3-center">
       <!-- 1eme Container -->
       <h2>Humidité</h2>
@@ -35,6 +37,7 @@
       <div id="gauge_temperature" style="width:400px; height:320px"></div>
     </div>
   </div>
+</div>
 
   <div class="w3-container">
     <p></p>
@@ -68,8 +71,9 @@
       </footer>
     </div>
 
+    
     <!-- 3eme Container -->
-    <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
+    <div class=" w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
       <form id="form_id" method="post" action="/post">
 
         <label>Jour</label>
@@ -91,11 +95,32 @@
           <input class="w3-btn w3-round w3-teal w3-margin" id="Valider" type="submit" value="Valider">
       </form>
     </div>
+    </div>
 
-  </div>
-  <footer class="w3-container">
-    <p> Fait par Touradou et Augustin IUT CY Neuville 2023/2024</p>
-  </footer>
+
+
+
+    
+
+
+    <!-- 3eme Container -->
+    <div class="w3-third w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
+
+        <h2>Météo de la ville</h2>
+      </div> 
+      <div>
+        <form action="/action_page.php">
+          <label for="city">Ville:</label><br>
+          <input type="text" id="city_id" name="city" value="Paris"><br>
+          <input type="submit" value="Valider">
+        </form>
+        
+    </div>
+
+    <footer class="w3-container">
+      <p> Fait par Touradou et Augustin IUT CY Neuville 2023/2024</p>
+    </footer>
+
 
   <!---->
   <script src="raphael.min.js"></script>
