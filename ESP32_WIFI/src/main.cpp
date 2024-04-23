@@ -17,11 +17,12 @@ BOUTON BOUTON_SELECT;
 
 //__Ticker__//
 Ticker ticker(action, 1000, 0, MILLIS);
-Ticker tickerAPI(GetJsonAPI, 30000, 0, MILLIS);
+Ticker tickerAPI(GetJsonAPI, 60000, 0, MILLIS);
 
 void setup()
 {
   Init();
+  GetJsonAPI();
 }
 
 void loop()
@@ -155,11 +156,11 @@ void GetJsonAPI()
   IconCode = (const char *)weather_0["icon"];
   Icon = "//openweathermap.org/img/wn/" + IconCode + "@2x.png";
 
-  /*Serial.printf("température : %.0f\n\r", zeTemperature);
-  Serial.printf("pression : %.0f\n\r", zePressure);
-  Serial.printf("hum : %.0f\n\r", zeHumidity);
-  Serial.printf("icon : %s\n\r", Icon);
-  Serial.printf("weather_0_description : %s\n\r", description);*/
+  // Serial.printf("température : %.0f\n\r", zeTemperature);
+  // Serial.printf("pression : %.0f\n\r", zePressure);
+  // Serial.printf("hum : %.0f\n\r", zeHumidity);
+  // Serial.printf("icon : %s\n\r", Icon);
+  // Serial.printf("weather_0_description : %s\n\r", description);
 }
 //
 void function_connect(WiFiEvent_t event, WiFiEventInfo_t info)
@@ -277,6 +278,9 @@ void setRoutes()
     {
       zeCity = request->getParam(PARAM_VILLE)->value();
       Serial.println(zeCity);
+      GetJsonAPI();
+      server.on("/Json", HTTP_GET, [](AsyncWebServerRequest *request) // Envoi JSON
+      { request->send(200, "/application/json", CreateJson()); });
     }
     request->send(200); });
   // Recuperation Ordre LED
@@ -308,6 +312,19 @@ void setRoutes()
     }
     request->send(200); });
   // Recuperation Données API
+  server.on("/TempAPI", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "/text/plain", String(zeTemperature)); });
+  //
+  server.on("/IconAPI", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "/text/plain", String(Icon)); });
+  //
+  server.on("/HumAPI", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "/text/plain", String(zeHumidity)); });
+  //
+  server.on("/PresAPI", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "/text/plain", String(zePressure)); });
+  server.on("/DescriptionAPI", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "/text/plain", description); });
 }
 //
 void draw_temp()

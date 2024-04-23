@@ -13,7 +13,7 @@
 <body>
   <!-- titre -->
   <div class="w3-container w3-responsive">
-    <div class="w3-row w3-blue w3-center w3-margin-bottom w3-responsive">
+    <div class="w3-row-padding w3-blue w3-center w3-margin-bottom w3-responsive">
       <h1>Interface météo
       </h1>
     </div>
@@ -21,21 +21,21 @@
 
   <!-- Premier Row -->
   <div class="w3-container">
-    <div class="w3-padding ">
+    <div class="w3-row-padding ">
       <div class="w3-third w3-card w3-center">
         <!-- 1eme Container -->
         <h2>Humidité</h2>
-        <div id="gauge_humidity" style="width:400px; height:320px"></div>
+        <div id="gauge_humidity"></div>
       </div>
       <div class="w3-third w3-card w3-center">
         <!-- 2eme Container -->
         <h2>Luminosité</h2>
-        <div id="gauge_lux" style="width:400px; height:320px;"></div>
+        <div id="gauge_lux"></div>
       </div>
       <div class="w3-third w3-card w3-center">
         <!-- 3eme Container -->
         <h2>Température</h2>
-        <div id="gauge_temperature" style="width:400px; height:320px"></div>
+        <div id="gauge_temperature"></div>
       </div>
     </div>
   </div>
@@ -48,13 +48,13 @@
   <!-- Deuxieme Row -->
   <!-- 1er Container -->
   <div class="w3-row">
-    <div class="w3-third w3-card w3-margin w3-center" style="width:32.2%">
+    <div class="w3-third w3-card w3-margin w3-center">
       <h2>pression</h2>
-      <div id="gauge_pressure" style="width:400px; height:320px"></div>
+      <div id="gauge_pressure"></div>
     </div>
 
     <!-- 2eme Container -->
-    <div class="w3-col w3-card w3-margin-top w3-center" style="width:32.2%">
+    <div class="w3-col w3-card w3-margin-top w3-center">
       <header class="w3-container">
         <h2>LED</h2>
         <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
@@ -114,30 +114,34 @@
 
         <div class="w3-container">
           <h3>temperature</h3>
+          <h4><span id="val_TempAPI"></span> &#8451</h4>
+
+          <div class="w3-container">
+            <h3>pression</h3>
+            <h4><span id="val_PresAPI"></span> hPa</h4>
+          </div>
+
+          <div class="w3-container">
+            <h3>humidité</h3>
+            <h4><span id="val_HumAPI"></span> &#37</h4>
+          </div>
         </div>
 
-        <div class="w3-container">
-          <h3>pression</h3>
+        <div class="w3-third w3-card w3-center">
+
+          <div class="w3-container">
+            <h3>icon</h3>
+            <h4><img id="val_IconAPI" src="url" alt=""></h4>
+          </div>
+
+          <div class="w3-container">
+            <h3>info</h3>
+            <h4><span id="val_DescriptionAPI"></span></h4>
+          </div>
+
         </div>
-
-        <div class="w3-container">
-          <h3>humidité</h3>
-        </div>
-      </div>
-
-      <div class="w3-third w3-card w3-center">
-
-        <div class="w3-container">
-          <h3>icon</h3>
-        </div>
-
-        <div class="w3-container">
-          <h3>info</h3>
-        </div>
-
       </div>
     </div>
-  </div>
 
   </div>
 

@@ -59,8 +59,8 @@ const String LANG = "&lang=fr";
 
 String zeCity = "Paris,FR";
 float zeTemperature = 0;
-float zePressure = 0;
-float zeHumidity = 0;
+int zePressure = 0;
+int zeHumidity = 0;
 
 String Icon = "";
 String IconCode = "";

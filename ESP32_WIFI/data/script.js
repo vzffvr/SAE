@@ -1,27 +1,35 @@
 const button_on_ref = document.getElementById("btn_on_id");
 const button_off_ref = document.getElementById("btn_off_id");
 
-const temperature_ref = document.getElementById("temperature_id");
-const lux_ref = document.getElementById("temperature_id");
-
 const slider_ref = document.getElementById("slider_id");
 const val_slider_ref = document.getElementById("servo_val_id");
 
 const button_city_ref = document.getElementById("validationville");
 const CityName = document.getElementById("city_text");
 
+const TempAPI_ref = document.getElementById("val_TempAPI");
+const PresAPI_ref = document.getElementById("val_PresAPI");
+const HumAPI_ref = document.getElementById("val_HumAPI");
+const IconAPI_ref = document.getElementById("val_IconAPI");
+const DescriptionAPI_ref = document.getElementById("val_DescriptionAPI");
 
 let sliderValue = 0;
 let cityName = "Paris";
+let TempAPI = 0.0;
+let PresAPI = 0;
+let HumAPI = 0;
+let IconAPI = 0;
+let Description_API = "";
 
 //eventListener
 slider_ref.addEventListener("change", slider_handler);
 button_on_ref.addEventListener("click", button_on_handler);
 button_off_ref.addEventListener("click", button_off_handler);
 // button_city_ref.addEventListener("click", city_handler);
-city.addEventListener("click", city_handler);
+button_city_ref.addEventListener("click", city_handler);
 //
-/*function Json_Handler() {
+
+function Json_Handler() {
   const xhttp = new XMLHttpRequest();
   //
   xhttp.onreadystatechange = function () {
@@ -33,29 +41,18 @@ city.addEventListener("click", city_handler);
   //
   xhttp.open("GET", "/weather/", true);
   xhttp.send();
-}*/
-//
-// function city_handler(event) {
-//   CityName = event.target.value;
+}
 
-//   const xhttp = new XMLHttpRequest();
-//   xhttp.open("GET", "/weather?city=" + CityName, true);
-//   xhttp.send();
 
-//   console.log(CityName)
-
-// }
-
-function city_handler(event)
-{
-  cityName = event.target.value;
-  val_slider_ref.textContent = cityName;
+function city_handler(event) {
+  cityName = CityName.value;
+  //val_slider_ref.textContent = cityName;
 
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "/weather?city=" + cityName, true);
   xhttp.send();
 
-  console.log("ville maj")
+  console.log(cityName)
 }
 
 //
@@ -143,19 +140,91 @@ function Pres_Handler() {
   xhttp.open("GET", "/Presvalue", true);
   xhttp.send();
 }
-/* function set_gauge_value() {
-  gaugeTemperature.refresh(temperatureValue);
+//Renvoie HTML info API
+function TEMP_API_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      TempAPI = this.responseText;
+      console.log(TempAPI);
+      TempAPI_ref.textContent = TempAPI;
+    }
+  }
+  //
+  xhttp.open("GET", "/TempAPI", true);
+  xhttp.send();
+}
 
-  // gaugeHumidity.refresh();
+function Pres_API_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      PresAPI = this.responseText;
+      console.log(PresAPI);
+      PresAPI_ref.textContent = PresAPI;
+    }
+  }
+  //
+  xhttp.open("GET", "/PresAPI", true);
+  xhttp.send();
+}
 
-  // gaugePressure.refresh();
+function Hum_API_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      HumAPI = this.responseText;
+      console.log(HumAPI);
+      HumAPI_ref.textContent = HumAPI;
+    }
+  }
+  //
+  xhttp.open("GET", "/HumAPI", true);
+  xhttp.send();
+}
 
-  // gaugeLux.refresh();
-} */
+function Icon_API_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      IconAPI = this.responseText;
+      console.log(IconAPI);
+      IconAPI_ref.src = IconAPI;
+    }
+  }
+  //
+  xhttp.open("GET", "/IconAPI", true);
+  xhttp.send();
+}
+
+function Description_API_Handler() {
+  const xhttp = new XMLHttpRequest();
+  //
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      Description_API = this.responseText;
+      console.log(Description_API);
+      DescriptionAPI_ref.textContent = Description_API;
+    }
+  }
+  //
+  xhttp.open("GET", "/DescriptionAPI", true);
+  xhttp.send();
+}
+
 setInterval(temperature_Handler, 2000);
 setInterval(Lux_Handler, 2000);
 setInterval(Pres_Handler, 2000);
 setInterval(HUM_Handler, 2000);
+setInterval(TEMP_API_Handler, 2000);
+setInterval(Hum_API_Handler, 2000);
+setInterval(Pres_API_Handler, 2000);
+setInterval(Icon_API_Handler, 2000);
+setInterval(Description_API_Handler, 2000);
 
 //
 const gaugeTemperature = new JustGage({
