@@ -8,93 +8,128 @@
   <link rel="stylesheet" href="w3.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Esp32</title>
+  <style>
+    .cardcolor {
+      background-color: rgb(203, 209, 212);
+    }
+
+    body {
+      background-color: rgb(173, 199, 206);
+    }
+
+    ;
+  </style>
 </head>
 
 <body>
   <!-- titre -->
-  <div class="w3-container w3-responsive">
-    <div class="w3-row-padding w3-blue w3-center w3-margin-bottom w3-responsive">
-      <h1>Interface météo
-      </h1>
+  <div class="w3-container">
+    <div class="w3-blue w3-center w3-margin-bottom ">
+      <h1>Interface météo</h1>
     </div>
   </div>
 
   <!-- Premier Row -->
   <div class="w3-container">
+
     <div class="w3-row-padding ">
-      <div class="w3-quarter w3-card w3-center">
-        <!-- 1eme Container -->
-        <h2>Humidité</h2>
-        <div id="gauge_humidity"></div>
+      <!-- 1eme Container -->
+      <div class="w3-container w3-quarter w3-center">
+        <div class="w3-card   w3-border w3-margin-right cardcolor">
+          <h2>Humidité</h2>
+          <div id="gauge_humidity"></div>
+        </div>
       </div>
-      <div class="w3-quarter w3-card w3-center">
-        <!-- 2eme Container -->
-        <h2>Luminosité</h2>
-        <div id="gauge_lux"></div>
+      <!-- 2eme Container -->
+      <div class="w3-container w3-quarter w3-center">
+        <div class="w3-card   w3-border w3-margin-right cardcolor">
+          <h2>Luminosité</h2>
+          <div id="gauge_lux"></div>
+        </div>
       </div>
-      <div class="w3-quarter w3-card w3-center">
-        <!-- 3eme Container -->
-        <h2>Température</h2>
-        <div id="gauge_temperature"></div>
+      <!-- 3eme Container -->
+      <div class="w3-container w3-quarter w3-center">
+        <div class="w3-card   w3-border w3-margin-right cardcolor">
+          <h2>Température</h2>
+          <div id="gauge_temperature"></div>
+        </div>
       </div>
-      <div class="w3-quarter w3-card w3-center">
-        <!-- 4eme Container -->
-        <h2>pression</h2>
-        <div id="gauge_pressure"></div>
+      <!-- 4eme Container -->
+      <div class="w3-container w3-quarter w3-center">
+        <div class="w3-card  w3-border w3-margin-right cardcolor">
+          <h2>pression</h2>
+          <div id="gauge_pressure"></div>
+        </div>
       </div>
     </div>
+
   </div>
 
 
 
   <!-- Deuxieme Row -->
-  <div class="w3-container w3-row-padding">
-    <!-- 1er Container -->
-    <div class=" w3-col w3-card w3-margin-top w3-center w3-third">
-      <form id="form_id" method="post" action="/post">
+  <div class="w3-container w3-margin-top">
+    <div class="w3-row">
 
-        <h2>Changement de la date et de l'heure</h2>
-        <select class="w3-select" name="theday" required>
-          <option value="" disabled selected>Which day are we?</option>
-          <option value="1">Dimanche</option>
-          <option value="2">Lundi</option>
-          <option value="3">Mardi</option>
-          <option value="4">Mercredi</option>
-          <option value="5">Jeudi</option>
-          <option value="6">Vendredi</option>
-          <option value="7">Samedi</option>
+      <!-- 1er Container -->
 
-          <label>Date</label>
-          <input class="w3-input" id="thedate" name="thedate" type="date" required>
+      <div class="w3-container w3-third w3-center ">
+        <div class="w3-card  w3-border cardcolor w3-margin-right">
+          <header class="w3-container">
+            <h2>LED</h2>
+            <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
+            <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
+            <p></p>
+        </div>
 
-          <input class="w3-input" id="thetime" name="thetime" type="time" required>
-
-          <input class="w3-btn w3-round w3-teal w3-margin" id="Valider" type="submit" value="Valider">
-      </form>
-    </div>
-
-
-    <!-- 2eme Container -->
-    <div class="w3-col w3-third w3-card w3-margin-top w3-center">
-      <header class="w3-container">
-        <h2>LED</h2>
-        <button id="btn_on_id" class="w3-button w3-round-large w3-green">ON</button>
-        <button id="btn_off_id" class="w3-button w3-round-large w3-red">OFF</button>
         <p></p>
-    </div>
-    <!-- 3eme Container -->
-    <div class="w3-third w3-card w3-margin-top w3-center">
-      <header class="w3-container">
-        <h2>Servo moteur</h2>
-      </header>
-      <p></p>
-      <div class="w3-container">
-        <input type="range" id="slider_id" name="slider" min="0" max="180" value="0">
+        <p></p>
+
+        <div class="w3-card  w3-border cardcolor w3-margin-right">
+          <header class="w3-container">
+            <h2>Servo moteur</h2>
+          </header>
+          <p></p>
+          <div class="w3-container">
+            <input type="range" id="slider_id" name="slider" min="0" max="180" value="0">
+          </div>
+          <footer>
+            <span id="servo_val_id"></span>
+          </footer>
+        </div>
       </div>
-      <footer class="w3-container">
-        <p></p>
-        <p><span id="servo_val_id"></span></span></p>
-      </footer>
+
+
+      <!-- 2eme Container -->
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card  w3-border w3-margin-right cardcolor">
+          <form id="form_id" method="post" action="/post">
+
+            <h2>Changement de la date et de l'heure</h2>
+            <select class="w3-select cardcolor" name="theday" required>
+              <option value="" disabled selected>Quel jour sommes-nous?</option>
+              <option value="1">Dimanche</option>
+              <option value="2">Lundi</option>
+              <option value="3">Mardi</option>
+              <option value="4">Mercredi</option>
+              <option value="5">Jeudi</option>
+              <option value="6">Vendredi</option>
+              <option value="7">Samedi</option>
+
+              <label>Date</label>
+              <input class="w3-input cardcolor" id="thedate" name="thedate" type="date" required>
+              <input class="w3-input cardcolor" id=" thetime" name="thetime" type="time" required>
+              <input class="w3-btn w3-round w3-teal w3-margin cardcolor" id="change_img" type="submit" value="Valider">
+          </form>
+        </div>
+      </div>
+
+      <!-- 3eme Container -->
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card w3-border w3-margin-right cardcolor">
+          <h4><img id="icon_saison" src="img_saison" alt=""></h4>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -104,53 +139,60 @@
 
   <!-- 3eme Row -->
   <div class="w3-container w3-margin-top ">
-    <div class="w3-row-padding ">
-      <div class="w3-container w3-third w3-card ">
-        <h3>icon</h3>
-        <h4><img id="val_IconAPI" src="url" alt=""></h4>
+    <div class="w3-row ">
+
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card  w3-border w3-margin-right cardcolor">
+          <h3>icon</h3>
+          <h4><img id="val_IconAPI" src="url" alt=""></h4>
+        </div>
       </div>
 
-      <div class="w3-third w3-card-2 w3-center">
-
-        <h2>Météo de la ville</h2>
-
-        <label for="city">Ville:</label><br>
-        <input type="text" id="city_text" value="Paris" name="city"></input><br>
-        <input type="button" value="Valider" class="w3-btn w3-round" id="validationville" />
+      <div class="w3-container w3-third  w3-center ">
+        <div class="w3-card   w3-border w3-margin-right cardcolor">
+          <h2>Météo de la ville</h2>
+          <label for="city">Ville:</label><br>
+          <input type="text" id="city_text" value="Paris" name="city"></input><br>
+          <input type="button" value="Valider" class="w3-btn w3-round" id="validationville" />
+        </div>
       </div>
 
-      <div class="w3-container w3-third w3-card ">
-        <h3>info</h3>
-        <h4><span id="val_DescriptionAPI"></span></h4>
+      <div class="w3-container w3-third  w3-center ">
+        <div class="w3-card  w3-border w3-margin-right cardcolor">
+          <h3>Description météo</h3>
+          <h4><span id="val_DescriptionAPI"></span></h4>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4eme Row -->
+  <div class="w3-container w3-margin-top">
+    <div class="w3-row">
+
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card w3-margin-right w3-border cardcolor">
+          <h3 class="w3-container">Temperature</h3>
+          <h4 class="w3-container"><span id="val_TempAPI"></span> &#8451</h4>
+        </div>
+      </div>
+
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card  w3-margin-right w3-border cardcolor">
+          <h3 class="w3-container">Pression</h3>
+          <h4 class="w3-container"><span id="val_PresAPI"></span> hPa</h4>
+        </div>
+      </div>
+
+      <div class="w3-container w3-third w3-center">
+        <div class="w3-card w3-margin-right w3-border cardcolor">
+          <h3 class="w3-container ">Humidité</h3>
+          <h4 class="w3-container"><span id="val_HumAPI"></span> &#37</h4>
+        </div>
       </div>
     </div>
 
-    <!-- 4eme Row -->
-    <div class="w3-container w3-row-padding w3-margin-top">
-
-      <div class="w3-container w3-card w3-third">
-        <h3>temperature</h3>
-        <h4><span id="val_TempAPI"></span> &#8451</h4>
-      </div>
-
-      <div class="w3-container w3-card w3-third">
-        <h3>pression</h3>
-        <h4><span id="val_PresAPI"></span> hPa</h4>
-      </div>
-
-      <div class="w3-container w3-card w3-third">
-        <h3>humidité</h3>
-        <h4><span id="val_HumAPI"></span> &#37</h4>
-      </div>
-    </div>
-
-
-
-
-  </div>
-
-
-  </div>
   </div>
 
   <footer class="w3-container">

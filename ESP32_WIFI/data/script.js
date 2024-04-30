@@ -13,6 +13,9 @@ const HumAPI_ref = document.getElementById("val_HumAPI");
 const IconAPI_ref = document.getElementById("val_IconAPI");
 const DescriptionAPI_ref = document.getElementById("val_DescriptionAPI");
 
+/* const ChangeImg = document.getElementById("icon_saison");
+const Date = document.getElementById("thedate"); */
+
 let sliderValue = 0;
 let cityName = "Paris";
 let TempAPI = 0.0;
@@ -25,9 +28,13 @@ let Description_API = "";
 slider_ref.addEventListener("change", slider_handler);
 button_on_ref.addEventListener("click", button_on_handler);
 button_off_ref.addEventListener("click", button_off_handler);
-// button_city_ref.addEventListener("click", city_handler);
 button_city_ref.addEventListener("click", city_handler);
+//ChangeImg.addEventListener("click", changeImg_Handler);
 //
+
+/* function changeImg_Handler(){
+  let month = Date.value 
+} */
 
 function Json_Handler() {
   const xhttp = new XMLHttpRequest();
@@ -220,6 +227,7 @@ setInterval(temperature_Handler, 2000);
 setInterval(Lux_Handler, 2000);
 setInterval(Pres_Handler, 2000);
 setInterval(HUM_Handler, 2000);
+
 setInterval(TEMP_API_Handler, 2000);
 setInterval(Hum_API_Handler, 2000);
 setInterval(Pres_API_Handler, 2000);
